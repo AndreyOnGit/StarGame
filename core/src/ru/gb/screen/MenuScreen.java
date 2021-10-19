@@ -9,24 +9,26 @@ import ru.gb.base.BaseScreen;
 public class MenuScreen extends BaseScreen {
 
     private Texture img;
-    private Vector2 touch;
-    private Vector2 v;
+    private Vector2 touch, endPoint, currentPoint, velocityVector;
 
     @Override
     public void show() {
         super.show();
         img = new Texture("badlogic.jpg");
         touch = new Vector2();
-        v = new Vector2(1, 1);
+        endPoint = new Vector2(0f, 0f);
+        currentPoint = new Vector2(0f, 0f);
+        velocityVector = new Vector2(0f, 0f);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         batch.begin();
-        batch.draw(img, touch.x, touch.y);
+        batch.draw(img, currentPoint.x, currentPoint.y);
+        if (currentPoint.cpy().sub(endPoint).len() > 1)
+            currentPoint.add(velocityVector);
         batch.end();
-        touch.add(v);
     }
 
     @Override
@@ -38,6 +40,8 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touch.set(screenX, Gdx.graphics.getHeight() - screenY);
+        endPoint = touch.cpy();
+        velocityVector = endPoint.cpy().sub(currentPoint).nor();
         return super.touchDown(screenX, screenY, pointer, button);
     }
 

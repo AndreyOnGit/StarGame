@@ -112,4 +112,3 @@ public class GameScreen extends BaseScreen {
         batch.end();
     }
 }
-

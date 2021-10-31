@@ -10,7 +10,6 @@ import ru.gb.math.Rect;
 import ru.gb.sprite.Background;
 import ru.gb.sprite.ExitButton;
 import ru.gb.sprite.PlayButton;
-import ru.gb.sprite.Ship;
 import ru.gb.sprite.Star;
 
 public class MenuScreen extends BaseScreen {

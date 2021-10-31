@@ -31,4 +31,3 @@ public class PlayButton extends BaseButton {
         game.setScreen(new GameScreen());
     }
 }
-

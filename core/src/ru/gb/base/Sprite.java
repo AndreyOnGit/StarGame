@@ -27,7 +27,7 @@ public class Sprite extends Rect {
         regions[0] = region;
     }
 
-    public Sprite (TextureRegion region, int rows, int cols, int frames) {
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
         this.regions = Regions.split(region, rows, cols, frames);
     }
 
@@ -97,4 +97,3 @@ public class Sprite extends Rect {
         return destroyed;
     }
 }
-

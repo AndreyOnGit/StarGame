@@ -98,8 +98,6 @@ public class BaseScreen implements Screen, InputProcessor {
         return false;
     }
 
-
-
     @Override
     public boolean keyTyped(char character) {
         System.out.println("keyTyped character = " + character);

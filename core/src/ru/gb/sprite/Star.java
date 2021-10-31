@@ -45,3 +45,4 @@ public class Star extends Sprite {
         }
     }
 }
+

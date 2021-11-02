@@ -3,7 +3,6 @@ package ru.gb.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
@@ -16,7 +15,7 @@ import ru.gb.math.Rect;
 public class BaseScreen implements Screen, InputProcessor {
 
     private Rect screenBounds;
-    private Rect worldBounds;
+    protected Rect worldBounds;
     private Rect glBounds;
 
     private Matrix4 worldToGl;
@@ -25,8 +24,6 @@ public class BaseScreen implements Screen, InputProcessor {
     private final Vector2 touch = new Vector2();
 
     protected SpriteBatch batch;
-
-    private Music music;
 
     @Override
     public void show() {
@@ -39,9 +36,6 @@ public class BaseScreen implements Screen, InputProcessor {
         batch = new SpriteBatch();
         batch.getProjectionMatrix().idt();
         Gdx.input.setInputProcessor(this);
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
-        music.play();
-        music.setLooping(true);
     }
 
     @Override
@@ -55,6 +49,7 @@ public class BaseScreen implements Screen, InputProcessor {
         screenBounds.setSize(width, height);
         screenBounds.setLeft(0);
         screenBounds.setBottom(0);
+
         float aspect = width / (float) height;
         worldBounds.setHeight(1f);
         worldBounds.setWidth(1f * aspect);
@@ -89,7 +84,6 @@ public class BaseScreen implements Screen, InputProcessor {
     public void dispose() {
         System.out.println("dispose");
         batch.dispose();
-        music.dispose();
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.base.BaseScreen;
+import ru.gb.base.Ship;
 import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
 import ru.gb.pool.EnemyPool;
@@ -121,6 +122,19 @@ public class GameScreen extends BaseScreen {
         enemyPool.updateActiveObjects(delta);
         mainShip.update(delta);
         enemyEmitter.generate(delta);
+        if (enemyPool.getQuantityInPool() != 0){
+            for (int i = 0; i < enemyPool.getQuantityInPool(); i++){
+                if (checkCollision(mainShip, enemyPool.getActiveUnit(i))) enemyPool.getActiveUnit(i).destroy();
+            }
+        }
+    }
+
+    private boolean checkCollision(Ship mainShip, Ship enemyShip){
+        if ((mainShip.getLeft() < enemyShip.getLeft() + enemyShip.getWidth()) &&
+                (enemyShip.getLeft() < mainShip.getLeft() + mainShip.getWidth()) &&
+                (mainShip.getBottom() < enemyShip.getBottom() + enemyShip.getHeight()) &&
+                (enemyShip.getBottom() < mainShip.getBottom() + mainShip.getHeight())) return true;
+        return false;
     }
 
     private void freeAllDestroyed() {

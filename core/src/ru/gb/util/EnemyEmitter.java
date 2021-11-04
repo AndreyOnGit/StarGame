@@ -104,7 +104,7 @@ public class EnemyEmitter {
                     worldBounds.getLeft() + enemy.getHalfWidth(),
                     worldBounds.getRight() - enemy.getHalfWidth()
             );
-            enemy.setBottom(worldBounds.getTop());
+            enemy.setTop(worldBounds.getTop());
         }
     }
 }

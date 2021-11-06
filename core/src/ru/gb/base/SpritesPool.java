@@ -59,6 +59,10 @@ public abstract class SpritesPool<T extends Sprite> {
         freeObjects.clear();
     }
 
+    public void destroyAll (){
+        activeObjects.clear();
+    }
+
     private void free(T object) {
         object.flushDestroy();
         if (activeObjects.remove(object)) {

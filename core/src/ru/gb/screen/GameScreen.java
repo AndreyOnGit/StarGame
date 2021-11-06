@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -16,8 +17,10 @@ import ru.gb.pool.EnemyPool;
 import ru.gb.pool.ExplosionPool;
 import ru.gb.sprite.Background;
 import ru.gb.sprite.Bullet;
+import ru.gb.sprite.ButtonNewGame;
 import ru.gb.sprite.EnemyShip;
 import ru.gb.sprite.MainShip;
+import ru.gb.sprite.MessageGameOver;
 import ru.gb.sprite.Star;
 import ru.gb.util.EnemyEmitter;
 
@@ -43,6 +46,9 @@ public class GameScreen extends BaseScreen {
 
     private EnemyEmitter enemyEmitter;
 
+    private MessageGameOver messageGameOver;
+    private ButtonNewGame buttonNewGame;
+
     @Override
     public void show() {
         super.show();
@@ -66,6 +72,9 @@ public class GameScreen extends BaseScreen {
         mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
 
         enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
+
+        messageGameOver = new MessageGameOver(atlas);
+        buttonNewGame = new ButtonNewGame(atlas, mainShip, enemyPool, bulletPool);
     }
 
     @Override
@@ -85,6 +94,8 @@ public class GameScreen extends BaseScreen {
             star.resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+        messageGameOver.resize(worldBounds);
+        buttonNewGame.resize(worldBounds);
     }
 
     @Override
@@ -116,12 +127,14 @@ public class GameScreen extends BaseScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         mainShip.touchDown(touch, pointer, button);
+        buttonNewGame.touchDown(touch, pointer, button);
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         mainShip.touchUp(touch, pointer, button);
+        buttonNewGame.touchUp(touch, pointer, button);
         return false;
     }
 
@@ -134,6 +147,9 @@ public class GameScreen extends BaseScreen {
             enemyPool.updateActiveObjects(delta);
             mainShip.update(delta);
             enemyEmitter.generate(delta);
+        } else {
+            messageGameOver.update(delta);
+            buttonNewGame.update(delta);
         }
         explosionPool.updateActiveObjects(delta);
     }
@@ -189,6 +205,9 @@ public class GameScreen extends BaseScreen {
             bulletPool.drawActiveObjects(batch);
             enemyPool.drawActiveObjects(batch);
             mainShip.draw(batch);
+        } else {
+            messageGameOver.draw(batch);
+            buttonNewGame.draw(batch);
         }
         explosionPool.drawActiveObjects(batch);
         batch.end();

@@ -62,6 +62,11 @@ public class MainShip extends Ship {
         }
     }
 
+    public void recovery() {
+        this.hp = 1;
+        this.destroyed = false;
+    }
+
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         if (touch.x < worldBounds.pos.x) {

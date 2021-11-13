@@ -59,20 +59,16 @@ public abstract class SpritesPool<T extends Sprite> {
         freeObjects.clear();
     }
 
+    public void freeAllActiveObjects() {
+        freeObjects.addAll(activeObjects);
+        activeObjects.clear();
+    }
+
     private void free(T object) {
         object.flushDestroy();
         if (activeObjects.remove(object)) {
             freeObjects.add(object);
             System.out.println(getClass().getSimpleName() + " active/free: " + activeObjects.size() + "/" + freeObjects.size());
         }
-    }
-
-    public int getQuantityInPool() {
-        return activeObjects.size();
-    }
-
-    public T getActiveUnit(int i) {
-        if (activeObjects.size() == 0) return null;
-        return activeObjects.get(i);
     }
 }

@@ -10,7 +10,6 @@ import ru.gb.pool.ExplosionPool;
 import ru.gb.sprite.Bullet;
 import ru.gb.sprite.Explosion;
 
-
 public class Ship extends Sprite {
 
     private static final float DAMAGE_ANIMATE_INTERVAL = 0.1f;
@@ -68,6 +67,10 @@ public class Ship extends Sprite {
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getHp() {
+        return hp;
     }
 
     @Override
